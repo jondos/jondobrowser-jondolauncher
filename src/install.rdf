@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+  <Description about="urn:mozilla:install-manifest">
+	<em:id>jondo-launcher@jondos.de</em:id>
+	<em:version>0.2.10.5</em:version>
+	<em:type>2</em:type>
+	<em:bootstrap>true</em:bootstrap>
+	<em:unpack>false</em:unpack>
+
+	<!-- Front End MetaData -->
+	<!-- must provide default non-localized because It's used as a default on AMO. It's used as a default by the add-on manager, with the possibility of other locales overriding it. Failure to provide a non-localized name will lead to failed upload on AMO. -->
+	<em:name>JonDoLauncher</em:name>
+	<em:description>JonDoLauncher: Automatically switches JonDo on and off.</em:description>
+	<em:creator>Kai</em:creator>
+
+	<!-- firefox -->
+    <em:targetApplication>
+        <Description>
+            <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+            <em:minVersion>24.0</em:minVersion>
+            <em:maxVersion>*.*.*</em:maxVersion>
+        </Description>
+    </em:targetApplication>
+    <!-- thunderbird -->
+    <em:targetApplication>
+        <Description>
+            <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
+            <em:minVersion>10.0</em:minVersion>
+            <em:maxVersion>*.*.*</em:maxVersion>
+        </Description>
+    </em:targetApplication>
+    <!-- instantbird -->
+    <em:targetApplication>
+        <Description>
+            <em:id>{33cb9019-c295-46dd-be21-8c4936574bee}</em:id>
+            <em:minVersion>1.4</em:minVersion>
+            <em:maxVersion>*.*.*</em:maxVersion>
+        </Description>
+    </em:targetApplication>
+  </Description>
+</RDF>
