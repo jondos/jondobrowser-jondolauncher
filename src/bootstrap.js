@@ -1,12 +1,27 @@
-const {classes: Cc, interfaces: Ci, utils: Cu} = Components;
+const {classes: Cc, interfaces: Ci, utils: Cu, results: Cr} = Components;
 Cu.import('resource://gre/modules/Services.jsm');
+let prefsService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService);
 
 var p = null;
 
 function install() {}
 function uninstall() {} 
-function shutdown() {
-	toggleJondo("off");
+function shutdown(data, reason) {
+	// check if JonDo automatic shutdown is enabled
+	var jondoAutoShutdown = true;
+    try{
+        if(prefsService){
+            let prefsBranch = prefsService.getBranch("extensions.JonDo.");
+            if(prefsBranch){
+                jondoAutoShutdown = prefsBranch.getBoolPref("automatic_shutdown");
+            }
+        }
+    }catch(e){
+        console.log(e);
+    }
+    if(jondoAutoShutdown){
+		toggleJondo("off");
+	}
 }
 function startup() {
 	toggleJondo("on");
