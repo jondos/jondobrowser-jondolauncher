@@ -1,6 +1,7 @@
 const {classes: Cc, interfaces: Ci, utils: Cu, results: Cr} = Components;
 Cu.import('resource://gre/modules/Services.jsm');
 let prefsService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService);
+let toolkitProfileService = Cc["@mozilla.org/toolkit/profile-service;1"].createInstance(Ci.nsIToolkitProfileService);
 
 var p = null;
 
@@ -30,7 +31,7 @@ function startup() {
 function toggleJondo(flag) {
 	try{
 		var xr = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULRuntime);
-      	var mOS = xr.OS;    	
+      	var mOS = xr.OS;
 
 		let topDir = Cc["@mozilla.org/file/directory_service;1"].getService(Ci.nsIProperties).get("CurProcD", Ci.nsIFile);
 		let appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
@@ -80,7 +81,14 @@ function toggleJondo(flag) {
 	        	args.push(topDir.path);
 	        }
 	        if(flag == "on"){
+	        	var JonDoConfigFile = toolkitProfileService.getProfileByName("default").rootDir.clone();
+	        	JonDoConfigFile = JonDoConfigFile.parent;
+	        	JonDoConfigFile = JonDoConfigFile.parent;
+	        	JonDoConfigFile.appendRelativePath("jap.conf");
 		        args.push("on");
+		        args.push("--hideUpdate");
+		        args.push("--browserProfilePath");
+		        args.push("\"" + JonDoConfigFile.path + "\"");
 		    }else{
 		    	args.push("off");
 		    }
